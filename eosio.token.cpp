@@ -8,7 +8,7 @@ token::token(account_name self) :
 {}
 
 void token::_create(account_name issuer, eosio::asset maximum_supply, bool lock) {
-	require_auth(this->admin);
+	eosio_assert(has_auth(this->_self) || has_auth(this->admin), "Not authorized");
 
 	auto sym = maximum_supply.symbol;
 	eosio_assert(sym.is_valid(), "invalid symbol name");
