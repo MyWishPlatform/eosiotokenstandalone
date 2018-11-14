@@ -5,8 +5,8 @@ import unittest
 from token_class import *
 import re
 import warnings
+import argparse
 
-verbosity([])  # disable logs
 
 def ignore_warnings(test_func):
     def do_test(self, *args, **kwargs):
@@ -14,6 +14,7 @@ def ignore_warnings(test_func):
             warnings.simplefilter("ignore", ResourceWarning)
             test_func(self, *args, **kwargs)
     return do_test
+
 
 class TokenStandaloneTests(unittest.TestCase):
     @classmethod
@@ -527,5 +528,14 @@ class TokenStandaloneTests(unittest.TestCase):
             main_token.withdraw(self.token_buyer_acc.name, one_token, self.token_buyer2_acc)
 
 if __name__ == "__main__":
-    unittest.main()
+    verbosity([])  # disable logs
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--verbose", help="increase output verbosity",
+                        action="store_true")
+    args = parser.parse_args()
+    if args.verbose:
+        verbosity([Verbosity.INFO, Verbosity.OUT, Verbosity.TRACE, Verbosity.DEBUG])
+        print("verbosity turned on")
+
+    unittest.main()
