@@ -1,3 +1,4 @@
+.PHONY: all test clean
 NAME=eosio.token
 
 all:
@@ -6,4 +7,4 @@ all:
 	eosiocpp -o $(NAME)/$(NAME).wast $(NAME).cpp
 
 test:
-	python3 unittest_eosiotoken.py
+	python3 test/unittest_tokenstandalone.py
