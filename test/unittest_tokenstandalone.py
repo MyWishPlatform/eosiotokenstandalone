@@ -30,13 +30,18 @@ class TokenStandaloneTests(unittest.TestCase):
         with open("deploy_data.json") as deploy_config:
             cls.deploy_json = json.load(deploy_config)
 
+        token_max_supply = 4611686018427387903
+
         cls.maximum_supply = cls.deploy_json["maximum_supply"]
         cls.decimals = cls.deploy_json["decimals"]
         cls.symbol = cls.deploy_json["symbol"]
 
         cprint("#0 Precheck", "magenta")
-        assert (0 < cls.maximum_supply < 10 ** 15)
         assert (0 <= cls.decimals <= 16)
+        if cls.decimals == 0:
+            assert (0 < cls.maximum_supply <= token_max_supply)
+        elif cls.decimals >= 0:
+            assert (0 < cls.maximum_supply <= token_max_supply / 10 ** cls.decimals)
         assert (cls.symbol.isupper() and 0 < len(cls.symbol) < 8)
 
     @classmethod
