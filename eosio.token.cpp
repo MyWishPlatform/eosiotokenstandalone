@@ -98,7 +98,7 @@ void token::unlock(eosio::symbol_type symbol) {
 	});
 }
 
-void token::burn(account_name owner, asset value) {
+void token::burn(account_name owner, eosio::asset value) {
 	require_auth(owner);
 
 	auto sym = value.symbol.name();
