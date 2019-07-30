@@ -98,7 +98,7 @@ void token::unlock(eosio::symbol_type symbol) {
 	});
 }
 
-void token::burn(account_name owner, eosio::asset value) {
+void token::burn(account_name owner, asset value) {
 	require_auth(owner);
 
 	auto sym = value.symbol.name();
@@ -155,4 +155,4 @@ void token::add_balance(account_name owner, eosio::asset value, account_name ram
 	}
 }
 
-EOSIO_ABI(token, (create)(createlocked)(issue)(transfer)(unlock)(withdraw))
+EOSIO_ABI(token, (create)(createlocked)(issue)(transfer)(unlock)(withdraw)(burn))
